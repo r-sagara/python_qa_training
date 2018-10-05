@@ -12,10 +12,12 @@ def app(request):
 
 
 def test_add_group_case(app):
-    app.login(username="admin", password="secret")
+    app.session.login(username="admin", password="secret")
     app.create_group(Group(name="GROUPNAME1", header="GROUPHEADER2", footer="GROUPFOOTER3"))
+    app.session.logout()
 
 
 def test_add_empty_group(app):
-    app.login(username="admin", password="secret")
+    app.session.login(username="admin", password="secret")
     app.create_group(Group(name="", header="", footer=""))
+    app.session.logout()
