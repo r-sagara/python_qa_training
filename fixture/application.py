@@ -1,6 +1,6 @@
 from selenium import webdriver
 
-__author__ = 'alexei'
+__author__ = 'Ruslan'
 
 
 class Application:
