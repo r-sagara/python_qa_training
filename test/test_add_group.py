@@ -1,14 +1,5 @@
 # -*- coding: utf-8 -*-
 from model.group import Group
-from fixture.application import Application
-import pytest
-
-
-@pytest.fixture
-def app(request):
-    fixt = Application()
-    request.addfinalizer(fixt.destroy)
-    return fixt
 
 
 def test_add_group_case(app):

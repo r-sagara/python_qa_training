@@ -1,14 +1,5 @@
 # -*- coding: utf-8 -*-
 from model.contact import Contact
-from fixture.application import Application
-import pytest
-
-
-@pytest.fixture
-def app(request):
-    fixt = Application()
-    request.addfinalizer(fixt.destroy)
-    return fixt
 
 
 def test_add_empty_contact(app):
