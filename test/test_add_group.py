@@ -2,7 +2,7 @@
 from model.group import Group
 
 
-def test_add_group_case(app):
+def test_add_group(app):
     app.session.login(username="admin", password="secret")
     app.group.create(Group(name="GROUPNAME1", header="GROUPHEADER2", footer="GROUPFOOTER3"))
     app.session.logout()

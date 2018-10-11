@@ -23,3 +23,7 @@ class ContactHelper:
     def return_to_contacts_page(self):
         driver = self.app.driver
         driver.find_element_by_link_text("home page").click()
+
+    def delete_first_contact(self):
+        driver = self.app.driver
+        driver.find_element_by_name("selected[]").click()

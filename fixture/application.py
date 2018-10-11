@@ -19,6 +19,5 @@ class Application:
         driver = self.driver
         driver.get("http://localhost/addressbook/")
 
-
     def destroy(self):
         self.driver.quit()
