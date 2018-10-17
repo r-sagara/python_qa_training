@@ -7,10 +7,12 @@ from model.group import Group
         app.group.delete_first_group()"""
 
 def test_check_all_groups_and_delete(app):
+    old_groups = app.group.get_group_list()
     if app.group.count() == 0:
         app.group.create(Group(name="test"))
-    app.group.check_all_groups()
-    app.group.delete_groups()
+    app.group.delete_all_groups()
+    new_groups = app.group.get_group_list()
+    assert len(old_groups) + 1 == len(new_groups)
 
 def test_delete_first_group(app):
     if app.group.count() == 0:

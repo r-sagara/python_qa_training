@@ -1,3 +1,4 @@
+from model.group import Group
 
 
 class GroupHelper:
@@ -6,7 +7,7 @@ class GroupHelper:
         self.app = app
 
     def return_to_groups_page(self):
-        driver = self.app.driver()
+        driver = self.app.driver
         driver.find_element_by_link_text("group page").click()
 
     def create(self, group):
@@ -32,7 +33,8 @@ class GroupHelper:
 
     def open_groups_page(self):
         driver = self.app.driver
-        driver.find_element_by_link_text("GROUPS").click()
+        if not (driver.current_url.endswith("/group.php") and len(driver.find_elements_by_name("new")) > 0):
+            driver.find_element_by_link_text("GROUPS").click()
 
     def delete_first_group(self):
         driver = self.app.driver
@@ -43,9 +45,12 @@ class GroupHelper:
         self.delete_groups(driver)
         self.return_to_groups_page()
 
-    def delete_groups(self, driver=None):
-        if driver is None:
-            driver = self.app.driver
+    def delete_all_groups(self):
+        driver = self.app.driver
+        self.check_all_groups()
+        self.delete_groups(driver)
+
+    def delete_groups(self, driver):
         driver.find_element_by_name("delete").click()
 
     def select_first_group(self, driver):
@@ -73,3 +78,16 @@ class GroupHelper:
         self.open_groups_page()
         for item in driver.find_elements_by_name("selected[]"):
             item.click()
+
+    def get_group_list(self):
+        driver = self.app.driver
+        self.open_groups_page()
+        groups = []
+        for item in driver.find_elements_by_name("selected[]"):
+            s = item.get_attribute("title")
+            text = s[s.find("(") + 1:s.find(")")]
+            id = item.get_attribute("value")
+            groups.append(Group(name=text, id=id))
+        return groups
+
+
